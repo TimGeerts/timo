@@ -1,0 +1,18 @@
+<p>
+  item-list works!
+</p>
+<button class="btn btn-sm specialbutton" (click)="refreshItem(124437)">refresh item</button>
+<button class="btn btn-sm" (click)="refreshAllItems()" title="Refresh TSM data">
+  <i class="fa fa-refresh" [ngClass]="{'fa-spin': refreshing}"></i>
+</button>
+<span>{{items?.length}}</span>
+
+
+
+    <ul>
+      <li *ngFor="let item of items | async"> 
+        {{item.Name}}
+        <code>{{ item.MinBuyout }}</code>
+      </li>
+    </ul>
+    <div *ngIf="!items || items?.length === 0">No results, try clearing filters</div>
