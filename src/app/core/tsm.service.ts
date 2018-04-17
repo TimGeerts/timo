@@ -5,14 +5,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/filter';
 
-import { filter } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { Item } from '../shared/models/item.model';
 import { HttpClient } from '@angular/common/http';
-
-const apiUrl = environment.apiUrl;
-const apiKey = environment.apiKey;
-const region = environment.region;
-const realm = environment.realm;
 
 @Injectable()
 export class TsmService {
@@ -21,21 +16,21 @@ export class TsmService {
     constructor(private http: HttpClient) { }
 
     public getAllItems(): Observable<Item[]> {
-        let url = `${apiUrl}/${region}/${realm}?format=json&apiKey=${apiKey}`;
-        
         console.log('service: getAllItems');
-        if(!this.items$){
-            console.log('service: getAllItems - getting new items from tsm api.');
-            this.items$ = this.http.get<Item[]>(url)
-            .publishReplay(1)
-            .refCount();
+        if (!this.items$) {
+            console.log(`service: getAllItems - getting new items from tsm api at ${environment.apiUrl}.`);
+            this.items$ = this.http.get<Item[]>(environment.apiUrl)
+                .publishReplay(1)
+                .refCount();
         }
-        
-        
+
+        const example = this.items$.pipe(take(5));
+        const subscribe = example.subscribe(val => console.log(val));
+
         return this.items$;
     }
 
-    public getItem(id: number): Observable<Item>{
+    public getItem(id: number): Observable<Item> {
         return this.items$.map(items => items.find(item => item.Id === id));
     }
     // public getItem(itemid: number): Observable<Item> {

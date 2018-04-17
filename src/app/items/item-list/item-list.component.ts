@@ -11,30 +11,43 @@ import { TsmService } from '../../core/tsm.service';
   styleUrls: ['./item-list.component.scss']
 })
 export class ItemListComponent implements OnInit {
-  refreshing: boolean;
   items$: Observable<Item[]>;
+  items: Item[];
+  filteredItems: Item[];
+  refreshing: boolean;
+  page: number;
+  pageSize: number = 20;
 
   constructor(private dbService: DbService, private tsmService: TsmService) { }
 
   ngOnInit() {
-    // this.dbService.getItems().subscribe((items) => {
-    //   console.log(items);
-    //   this.items = items;
-    // });
-    // this.items$ = this.dbService.getItems();
     console.log('component: init get items');
-    this.items$ = this.tsmService.getAllItems();
+    this.tsmService.getAllItems().subscribe((data) => {
+      this.items = data;
+      this.setPage(1);
+    });
   }
+  
+  setPage(p: number){
+    this.page = p;
+    let start = p*this.pageSize-this.pageSize;
+    let end = p*this.pageSize;
+    this.filteredItems = this.items.slice(start, end);
+  }
+
+
+
+
 
   refreshItem(id: number) {
     let self = this;
     self.refreshing = true;
-    this.dbService.refreshItem(id).subscribe((i) => {
-      self.refreshing = false;
-    });
+    // this.dbService.refreshItem(id).subscribe((i) => {
+    //   self.refreshing = false;
+    // });
   }
 
-  getItem(id: number){
+  getItem(id: number) {
     this.tsmService.getItem(id).subscribe((i) => console.log(i));
   }
 

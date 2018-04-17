@@ -11,9 +11,6 @@ import { AngularFireLiteDatabase } from 'angularfire-lite';
 
 
 const apiUrl = environment.apiUrl;
-const apiKey = environment.apiKey;
-const region = environment.region;
-const realm = environment.realm;
 
 @Injectable()
 export class DbService {
@@ -21,20 +18,20 @@ export class DbService {
 
   constructor(private http: HttpClient, private db: AngularFireLiteDatabase) { }
 
-  public refreshItem(itemid: number): Observable<void> {
-    let url = `${apiUrl}/${region}/${realm}/${itemid}?format=json&apiKey=${apiKey}`;
-    return this.http.get<Item>(url).catch(this.handleError).map((item: Item) => {
-      console.log(item);
-      this.db.write('/tsm', { "lastupdate": +new Date, "item": item });
-    })
-  }
+  // public refreshItem(itemid: number): Observable<void> {
+  //   let url = `${apiUrl}/${region}/${realm}/${itemid}?format=json&apiKey=${apiKey}`;
+  //   return this.http.get<Item>(url).catch(this.handleError).map((item: Item) => {
+  //     console.log(item);
+  //     this.db.write('/tsm', { "lastupdate": +new Date, "item": item });
+  //   })
+  // }
 
-  public refreshAllItems(): Observable<void> {
-    let url = `${apiUrl}/${region}/${realm}?format=json&apiKey=${apiKey}`;
-    return this.http.get<Item[]>(url).catch(this.handleError).map((items: Item[]) => {
-      this.db.write('/tsm', { "lastupdated": +new Date, "items": items });
-    });
-  }
+  // public refreshAllItems(): Observable<void> {
+  //   let url = `${apiUrl}/${region}/${realm}?format=json&apiKey=${apiKey}`;
+  //   return this.http.get<Item[]>(url).catch(this.handleError).map((items: Item[]) => {
+  //     this.db.write('/tsm', { "lastupdated": +new Date, "items": items });
+  //   });
+  // }
 
   public getItems(): Observable<any>{
     return this.db.query('/tsm/items').limitToFirst(5).on('value').map(response => {

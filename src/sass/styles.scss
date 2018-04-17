@@ -1,5 +1,19 @@
+@import './variables.scss';
+
 body{
   p{
-    background-color: red;
+    font-style: italic;
+  }
+}
+
+.wowcurrency{
+  .g{
+    color: $cur_gold;
+  }
+  .s{
+    color: $cur_silver;
+  }
+  .c{
+    color: $cur_copper;
   }
 }

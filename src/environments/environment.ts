@@ -5,10 +5,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://api.tradeskillmaster.com/v1/item',
-  apiKey: 'J_1JjDK3aZinZsU9oJYFnkkwyp4le7oA',
-  realm: 'draenor',
-  region: 'EU',
+  apiUrl: 'http://localhost:3004/items',
   firebase: {
     apiKey: "AIzaSyCCLz8LEDs27QSnctBvHGRGlTDwwoCpmK4",
     authDomain: "timo-wow.firebaseapp.com",

@@ -5,9 +5,26 @@
 <button class="btn btn-sm" (click)="refreshAllItems()" title="Refresh TSM data">
   <i class="fa fa-refresh" [ngClass]="{'fa-spin': refreshing}"></i>
 </button>
-<span>{{(items$ | async)?.length}}</span>
+<span>{{items?.length}}</span>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Minimum Buyout</th>
+      <th>Market Value</th>
+    </tr>
+  </thead>
+  <tbody>
 
 
+    <tr *ngFor="let item of filteredItems">
+      <td>{{item.Name}}</td>
+      <td [innerHTML]="item.MinBuyout | wowCurrency"></td>
+      <td [innerHTML]="item.MarketValue | wowCurrency"></td>
+    </tr>
+  </tbody>
+</table>
 <!-- 
     <ul>
       <li *ngFor="let item of items$ | async"> 

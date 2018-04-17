@@ -5,6 +5,7 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { ItemComponent } from './items/item/item.component';
 import { ItemListComponent } from './items/item-list/item-list.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ItemListComponent } from './items/item-list/item-list.component';
   ],
   imports: [
     BrowserModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
