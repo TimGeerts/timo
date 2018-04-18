@@ -1,0 +1,23 @@
+<div *ngIf="filteredItems?.length">
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Minimum Buyout</th>
+        <th>Market Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of filteredItems">
+        <td>{{item.Name}}</td>
+        <td [innerHTML]="item.MinBuyout | wowCurrency"></td>
+        <td [innerHTML]="item.MarketValue | wowCurrency"></td>
+      </tr>
+    </tbody>
+  </table>
+  <app-pagination 
+    [rows]="items"
+    [perPage]="pageSize"
+    (onPage)="onPage($event)">
+  </app-pagination>
+</div> 

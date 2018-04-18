@@ -13,7 +13,7 @@ import { TsmService } from '../../core/tsm.service';
 export class ItemListComponent implements OnInit {
   items$: Observable<Item[]>;
   items: Item[];
-  filteredItems: Item[];
+  
   refreshing: boolean;
   page: number;
   pageSize: number = 20;
@@ -21,20 +21,12 @@ export class ItemListComponent implements OnInit {
   constructor(private dbService: DbService, private tsmService: TsmService) { }
 
   ngOnInit() {
-    console.log('component: init get items');
-    this.tsmService.getAllItems().subscribe((data) => {
+    this.items$ = this.tsmService.getAllItems();
+    this.items$.subscribe((data) => {
       this.items = data;
-      this.setPage(1);
     });
   }
   
-  setPage(p: number){
-    this.page = p;
-    let start = p*this.pageSize-this.pageSize;
-    let end = p*this.pageSize;
-    this.filteredItems = this.items.slice(start, end);
-  }
-
 
 
 
@@ -57,7 +49,6 @@ export class ItemListComponent implements OnInit {
     // this.dbService.refreshAllItems().subscribe((i) => {
     //   self.refreshing = false;
     // });
-    console.log('component: refreshing items');
     this.items$ = this.tsmService.getAllItems();
   }
 }

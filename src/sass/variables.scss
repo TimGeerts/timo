@@ -1,3 +1,9 @@
+//OVERRIDE BOOTSTRAP
+$theme-colors: (
+  "primary": #555,
+  "danger": #ff4136
+);
+
 $cur_gold: #CAAA00;
 $cur_silver: #777;
 $cur_copper: #B87333;

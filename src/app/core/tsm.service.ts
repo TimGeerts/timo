@@ -16,17 +16,11 @@ export class TsmService {
     constructor(private http: HttpClient) { }
 
     public getAllItems(): Observable<Item[]> {
-        console.log('service: getAllItems');
         if (!this.items$) {
-            console.log(`service: getAllItems - getting new items from tsm api at ${environment.apiUrl}.`);
             this.items$ = this.http.get<Item[]>(environment.apiUrl)
                 .publishReplay(1)
                 .refCount();
         }
-
-        const example = this.items$.pipe(take(5));
-        const subscribe = example.subscribe(val => console.log(val));
-
         return this.items$;
     }
 

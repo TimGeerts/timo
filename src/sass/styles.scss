@@ -1,9 +1,11 @@
 @import './variables.scss';
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
 body{
-  p{
-    font-style: italic;
-  }
+  font-size: 0.9em !important;
+}
+table th{
+  border-top: none !important;
 }
 
 .wowcurrency{
